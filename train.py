@@ -37,7 +37,7 @@ X_train = scalar.transform(X_train)
 X_test =  scalar.transform(X_test)
 
 #Building Model 
-clf = XGBClassifier()
+clf = LogisticRegression()
 clf.fit(X_train,y_train)
 
 with open("artifacts/model.pkl","wb") as f:
@@ -45,6 +45,6 @@ with open("artifacts/model.pkl","wb") as f:
 
 
 
-#print accuracy to metrics.txt
-acc = clf.score(X_test, y_test)
-print(acc)
+#print macro_averaged_f1score to metrics.txt
+f1score = f1_score(y_test,clf.predict(X_test), average = 'macro')
+print("f1 score : ",f1score)
